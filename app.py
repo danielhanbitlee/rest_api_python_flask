@@ -19,13 +19,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # this turns off the flask 
 app.secret_key = 'jose'
 api = Api(app) # this allows us to very easily add these resources to it. we are going to be able to get and post a resource, get and delete a resource, get put post and delete another
 
-# before the first request, no matter what the request is, app.py is going to run db.create_all()
-# this is going to create sqlite:///data.db
-# this will create all the files in data.db unless they already exist.
-@app.before_first_request
-def create_tables():
-    db.create_all()
-
 jwt = JWT(app, authenticate, identity)
 # jwt creates a new endpt /auth. when we call /auth, we send it a username and password.
 # jwt extension gets that username and password and sends it over to the authenticate fn in security.py
