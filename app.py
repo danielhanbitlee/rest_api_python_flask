@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask
 from flask_restful import Api
 from flask_jwt import JWT
@@ -14,7 +16,7 @@ from resources.store import Store, StoreList
 # resources are usually mapped into database tables as well.
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db' # this means that sqlalchemy database is going to live at the root folder of our project
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///data.db') # this means that sqlalchemy database is going to live at the root folder of our project
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # this turns off the flask sqlalchemy modification tracker. it does not turn off sqlalchemy modification tracker
 app.secret_key = 'jose'
 api = Api(app) # this allows us to very easily add these resources to it. we are going to be able to get and post a resource, get and delete a resource, get put post and delete another
